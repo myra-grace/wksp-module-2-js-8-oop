@@ -15,8 +15,8 @@ let b = createAcc();
 
 inc(b);
 
-console.log(a.sum);
-console.log(b.sum);
+console.log(a.sum); //0
+console.log(b.sum); // 1
 ```
 
 ---
@@ -61,6 +61,8 @@ Wait. What other types do you know?
 class Car {
 
 }
+
+//capitalized 'C' in Car is on purpose
 ```
 
 ---
@@ -94,6 +96,22 @@ class Car {
 
 let myCar = new Car("Toyota");
 let yourCar = new Car("Honda");
+
+
+//example
+class Car {
+    constructor(brandName, modelName) {
+        this.type = 'automobile';
+        this.brand = brandName || '';
+        this.model = modelName || '';
+
+    }
+}
+
+const myCar = new Car('Tesla', 'Cyber Truck');
+// comes back as an object ->
+myCar {'automobile', brandName: Tesla, modelName: Cyber Truck}
+
 ```
 
 ---
@@ -160,6 +178,7 @@ let concordiaBootcamps = new School('Concordia Bootcamps');
 concordiaBootcamps.noise();
 
 // What do I have to type to output the name?
+concordiaBootcamps.name// 'Concordia Bootcamps'
 
 ```
 
@@ -194,7 +213,7 @@ In other words, the keyword `this` refers to the newly created object.
 ```js
 class Dog {
     constructor(voice) {
-        this.voice = voice;
+        this.voice = voice || 'bark';
     }
     noise = () => {
         console.log(this.voice);
@@ -218,7 +237,30 @@ class Car {
     drive = () => { this.mileage = this.mileage + 10 }
 }
 let myCar = new Car();
-myCar.drive(); 
+myCar.drive();  // everytime you call theis it will go up by '+10' including the first time
+
+
+//example 2
+class Car {
+    constructor() {
+        this.mileage = 0;
+    }
+    drive = () => { this.mileage = this.mileage + amount || 10}
+}
+let myCar = new Car();
+myCar.drive(100);  // everytime you call theis it will go up by '+100' including the first time
+myCar.drive(); //  everytime you call theis it will go up by '+10' including the first time
+
+//example 3
+class Car {
+    constructor() {
+        this.status = mileage > 0 ? 'used' : 'new';
+        this.milage = milage || 0;
+    }
+    drive = () => { this.mileage = this.mileage + amount || 10}
+}
+let myCar = new Car(10000);
+myCar.drive(100);
 ```
 
 ---
@@ -230,7 +272,17 @@ myCar.drive();
 // 2. How could we represent varying hunger levels based on activity?
 // 3. How about when it eats?
 class Animal {
-
+    constructor(name) {
+        this.name = name;
+        this.hungerLvl = 0;
+    }
+    move = () => {
+        this.hungerLvl += 20;
+    }
+    eat = () => {
+        this.hungerLvl -= 10;
+        this.size = 'fat';
+    }
 }
 
 ```
@@ -254,9 +306,9 @@ class Human {
 }
 
 // Declare a class that extends Human
-class Male extends Human {
+class Male extends Human { //'extends Human' takes everything after constructor (methods) of human eg. dance
     constructor(name) {
-        super(); // call parent constructor to set the species
+        super(); // call parent constructor to set the species !TRIGGERS CONSTRUCTOR FROM HUMAN!
         this.name = name;
     }
     greet = () => {
